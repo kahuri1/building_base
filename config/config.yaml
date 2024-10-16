@@ -1,0 +1,19 @@
+port: "8000"
+
+db:
+  username: "myuser"
+  host: "localhost"
+  port: "5432"
+  dbname: "building_base"
+  sslmode: "disable"
+  password: "BXa[tUNL94~/T5Ba)Ku^"
+
+
+sql :
+  query: "SELECT * FROM buildings WHERE 1=1"
+  city: " AND city = $%d"
+  year: " AND year_completed = $%d"
+  floors: " AND floors = $%d"
+
+
+param: 1
