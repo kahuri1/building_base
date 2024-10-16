@@ -1,0 +1,137 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API server building_base",
+        "title": "building_base API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {
+        "/building": {
+            "get": {
+                "description": "Returns a list of buildings based on the specified filters (city, year, floors).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Buildings"
+                ],
+                "summary": "Get buildings by filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "City to filter",
+                        "name": "City",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Year to filter",
+                        "name": "Year",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Number of floors to filter",
+                        "name": "Floors",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of buildings",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Error when receiving buildings",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "add building in db",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Buildings"
+                ],
+                "summary": "Add Building",
+                "parameters": [
+                    {
+                        "description": "Building data",
+                        "name": "building",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.AddBuildingResponse"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ID new building",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "failed validation",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "failed server",
+                        "schema": {
+                            "$ref": "#/definitions/model.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.AddBuildingResponse": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "floors": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "year_completed": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

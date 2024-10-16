@@ -1,0 +1,91 @@
+basePath: /
+definitions:
+  model.AddBuildingResponse:
+    properties:
+      city:
+        type: string
+      floors:
+        type: string
+      name:
+        type: string
+      year_completed:
+        type: string
+    type: object
+  model.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: API server building_base
+  title: building_base API
+  version: "1.0"
+paths:
+  /building:
+    get:
+      consumes:
+      - application/json
+      description: Returns a list of buildings based on the specified filters (city,
+        year, floors).
+      parameters:
+      - description: City to filter
+        in: query
+        name: City
+        type: string
+      - description: Year to filter
+        in: query
+        name: Year
+        type: string
+      - description: Number of floors to filter
+        in: query
+        name: Floors
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of buildings
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Error when receiving buildings
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get buildings by filters
+      tags:
+      - Buildings
+    post:
+      consumes:
+      - application/json
+      description: add building in db
+      parameters:
+      - description: Building data
+        in: body
+        name: building
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddBuildingResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID new building
+          schema:
+            additionalProperties:
+              type: integer
+            type: object
+        "400":
+          description: failed validation
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: failed server
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Add Building
+      tags:
+      - Buildings
+swagger: "2.0"

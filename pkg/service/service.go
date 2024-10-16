@@ -7,6 +7,7 @@ import (
 
 type repo interface {
 	AddBuilding(building model.Building) (int, error)
+	Building(filter model.Filter) (model.BuildingResponse, error)
 }
 
 type Service struct {

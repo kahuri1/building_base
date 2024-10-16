@@ -10,6 +10,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+// @title building_base API
+// @version 1.0
+// @description API server building_base
+
+// @host localhost:8000
+// @basePath /
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
